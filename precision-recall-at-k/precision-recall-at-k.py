@@ -2,6 +2,10 @@ def precision_recall_at_k(recommended: list, relevant: list, k: int) -> list[flo
     """
     Returns [precision, recall] as a list of two floats.
     """
-    precision = len([rel for rel in relevant if rel in set(recommended[:k])]) / k
-    recall = len([rel for rel in relevant if rel in set(recommended[:k])]) / len(relevant)
+    common = 0
+    for rel in relevant:
+        if rel in set(recommended[:k]):
+            common += 1
+    precision = common / k
+    recall = common / len(relevant)
     return [precision, recall]
